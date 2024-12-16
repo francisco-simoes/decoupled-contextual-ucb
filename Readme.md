@@ -1,0 +1,1 @@
+Implementation of a simple contextual UCB algorithm for the contextual bandits problem when the contexts are "decoupled"; that is, there is no structure in the contexts, so that it is reasonable to simply run UCB on each context.
