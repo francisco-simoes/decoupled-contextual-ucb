@@ -52,20 +52,19 @@ the optimal rewards.\n"""
             )
         self.optimal_expected_rewards = optimal_expected_rewards
         self._initialize_run()
-        self._initialize_run()
 
     def _initialize_run(self):
         for i in range(len(self.ucbs)):
             self.ucbs[i]._initialize_run()
-            self.total_pulls = 0  # Total number of pulls during run
-            self.contexts = []  # Contexts observed during run
-            # A run is characterized by tuples (c_t, p(c_t), a_t, p(a_t), x_t).
-            self.sampled_contexts_probs = []  # Probability of each observed context
-            self.selected_arms = []  # Pulled arms during a run
-            self.pulled_arm_probs = []  # Probabilities of the pulled arms
-            self.observed_rewards = []  # Rewards observed during run
-            self.cumulative_regrets = []  # (Instantaneous) cumulative regrets
-            self.best_policy = None
+        self.total_pulls = 0  # Total number of pulls during run
+        self.contexts = []  # Contexts observed during run
+        # A run is characterized by tuples (c_t, p(c_t), a_t, p(a_t), x_t).
+        self.sampled_contexts_probs = []  # Probability of each observed context
+        self.selected_arms = []  # Pulled arms during a run
+        self.pulled_arm_probs = []  # Probabilities of the pulled arms
+        self.observed_rewards = []  # Rewards observed during run
+        self.cumulative_regrets = []  # (Instantaneous) cumulative regrets
+        self.best_policy = None
 
     def run(self, n_rounds, fresh_start=True):
         if fresh_start:
@@ -79,7 +78,6 @@ the optimal rewards.\n"""
             # One UCB step, for the UCB for this context
             ucb = self.ucbs[context]
             ucb.step()
-            # TODO extract reward to record that! also select arms
             # Update tracking class's attributes
             self.total_pulls += 1
             self.contexts += [context]
