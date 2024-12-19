@@ -61,8 +61,8 @@ the optimal rewards.\n"""
         # A run is characterized by tuples (c_t, p(c_t), a_t, p(a_t), x_t).
         self.sampled_contexts_probs = []  # Probability of each observed context
         self.selected_arms = []  # Pulled arms during a run
-        self.pulled_arm_probs = []  # Probabilities of the pulled arms
         self.observed_rewards = []  # Rewards observed during run
+        self.observed_rewards_probs = []  # Probabilities of the observed rewards
         self.cumulative_regrets = []  # (Instantaneous) cumulative regrets
         self.best_policy = None
 
@@ -83,7 +83,7 @@ the optimal rewards.\n"""
             self.contexts += [context]
             self.sampled_contexts_probs += [context_prob]
             self.selected_arms += [ucb.selected_arms[-1]]
-            self.pulled_arm_probs += [ucb.pulled_arm_probs[-1]]
+            self.observed_rewards_probs += [ucb.observed_rewards_probs[-1]]
             self.observed_rewards += [ucb.observed_rewards[-1]]
 
         # Record run details into UCB instances' attributes
@@ -117,7 +117,7 @@ the optimal rewards.\n"""
             "selected_arms": self.selected_arms,
             "observed_rewards": self.observed_rewards,
             "context_probs": self.sampled_contexts_probs,
-            "arm_probs": self.pulled_arm_probs,
+            "observed_rewards_probs": self.observed_rewards_probs,
             "cum_regrets": self.cumulative_regrets,
             "best_policy": self.best_policy,
         }
@@ -149,7 +149,3 @@ if __name__ == "__main__":
 
     plot(cont_ucb.cumulative_regrets)
     show()
-
-    # # fmt:off
-    # import ipdb; ipdb.set_trace() # noqa
-    # # fmt:on

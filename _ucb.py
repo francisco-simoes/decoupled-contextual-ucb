@@ -47,7 +47,7 @@ the optimal reward.\n"""
         self.total_pulls = 0  # Total number of pulls during run
         self.selected_arms = []  # Pulled arms during a run
         self.observed_rewards = []  # Rewards observed during run
-        self.pulled_arm_probs = []  # Probabilities of pulled arms
+        self.observed_rewards_probs = []  # Probabilities of observed rewards
         self.arm_expected_rewards = np.zeros(
             self.n_arms
         )  # Expected reward for each arm
@@ -80,13 +80,13 @@ the optimal reward.\n"""
     def step(self):
         chosen_arm = self._select_arm()
         # Pull arm
-        reward, arm_prob = self.reward_distributions[chosen_arm].sample()
+        reward, reward_prob = self.reward_distributions[chosen_arm].sample()
         reward = reward.item()
-        arm_prob = arm_prob.item()
+        reward_prob = reward_prob.item()
         self._update_arm(chosen_arm, reward)
         self.selected_arms += [chosen_arm]
         self.observed_rewards += [reward]
-        self.pulled_arm_probs += [arm_prob]
+        self.observed_rewards_probs += [reward_prob]
 
     def record_details(self):
         # Estimate expected rewards for each arm, and then for each chosen arm
@@ -111,7 +111,7 @@ the optimal reward.\n"""
         history = {
             "selected_arms": self.selected_arms,
             "observed_rewards": self.observed_rewards,
-            "arm_probs": self.pulled_arm_probs,  # Probabilities of pulled arms
+            "reward_probs": self.observed_rewards_probs,
             "cum_regrets": self.cumulative_regrets,
             # "best_arm": best_arm,  # The last chosen arm
             "arm_expected_rewards": self.arm_expected_rewards,
